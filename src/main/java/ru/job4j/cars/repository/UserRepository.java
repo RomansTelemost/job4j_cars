@@ -65,7 +65,7 @@ public class UserRepository {
         try {
             session.beginTransaction();
             Query query = session.createQuery("DELETE FROM User WHERE id = :userId");
-            query.setParameter("userId",userId);
+            query.setParameter("userId", userId);
             query.executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
