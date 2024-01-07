@@ -30,8 +30,9 @@ public class UserRepository {
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when create " + user, e);
+        } finally {
+            session.close();
         }
-        session.close();
         return user;
     }
 
@@ -49,8 +50,9 @@ public class UserRepository {
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when update " + user, e);
+        } finally {
+            session.close();
         }
-        session.close();
     }
 
     /**
@@ -62,15 +64,16 @@ public class UserRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            User user = new User();
-            user.setId(userId);
-            session.delete(user);
+            Query query = session.createQuery("DELETE FROM User WHERE id = :userId");
+            query.setParameter("userId",userId);
+            query.executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when delete user with id" + userId, e);
+        } finally {
+            session.close();
         }
-        session.close();
     }
 
     /**
@@ -89,8 +92,9 @@ public class UserRepository {
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when findAllOrderById", e);
+        } finally {
+            session.close();
         }
-        session.close();
         return users;
     }
 
@@ -106,13 +110,14 @@ public class UserRepository {
             session.beginTransaction();
             Query<User> query = session.createQuery("FROM User u WHERE u.id = :userId", User.class);
             query.setParameter("userId", userId);
-            userOpt = Optional.of(query.uniqueResult());
+            userOpt = query.uniqueResultOptional();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when findById " + userId, e);
+        } finally {
+            session.close();
         }
-        session.close();
         return userOpt;
     }
 
@@ -134,8 +139,9 @@ public class UserRepository {
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when findByLikeLogin by " + key, e);
+        } finally {
+            session.close();
         }
-        session.close();
         return users;
     }
 
@@ -152,13 +158,14 @@ public class UserRepository {
             session.beginTransaction();
             Query<User> query = session.createQuery("FROM User u WHERE u.login = :login", User.class);
             query.setParameter("login", login);
-            userOpt = Optional.of(query.uniqueResult());
+            userOpt = query.uniqueResultOptional();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.error("Error when findByLogin " + login, e);
+        } finally {
+            session.close();
         }
-        session.close();
         return userOpt;
     }
 }
