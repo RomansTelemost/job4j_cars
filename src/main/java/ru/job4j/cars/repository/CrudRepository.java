@@ -53,7 +53,7 @@ public class CrudRepository {
         return tx(command);
     }
 
-    public <T>List<T> query(String query, Class<T> cl) {
+    public <T> List<T> query(String query, Class<T> cl) {
         Function<Session, List<T>> command = session -> session
                     .createQuery(query, cl)
                     .list();
