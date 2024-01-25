@@ -18,9 +18,8 @@ public class UserUsage {
         try (SessionFactory sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
             ApplicationContext j = new AnnotationConfigApplicationContext(HibernateConfiguration.class);
-            UserRepositoryByCrudRepo ur = j.getBean(UserRepositoryByCrudRepo.class);
+            UserRepositoryByCrudRepo userRepository = j.getBean(UserRepositoryByCrudRepo.class);
 
-            var userRepository = ur;//new UserRepositoryByCrudRepo(new CrudRepository(sf));
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
