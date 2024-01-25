@@ -4,22 +4,19 @@ import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 @AllArgsConstructor
+@Repository
 public class CrudRepository {
 
     private final SessionFactory sf;
-
-    private static final Logger LOG = LoggerFactory.getLogger(CrudRepository.class.getName());
 
     public void run(Consumer<Session> command) {
         tx(session -> {
@@ -83,7 +80,6 @@ public class CrudRepository {
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
-                LOG.error("Error", e);
             }
             throw e;
         } finally {

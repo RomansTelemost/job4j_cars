@@ -4,15 +4,23 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
+import ru.job4j.cars.conf.HibernateConfiguration;
 import ru.job4j.cars.model.User;
 
+@Component
 public class UserUsage {
     public static void main(String[] args) {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try (SessionFactory sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
-            var userRepository = new UserRepositoryByCrudRepo(new CrudRepository(sf));
+            ApplicationContext j = new AnnotationConfigApplicationContext(HibernateConfiguration.class);
+            UserRepositoryByCrudRepo ur = j.getBean(UserRepositoryByCrudRepo.class);
+
+            var userRepository = ur;//new UserRepositoryByCrudRepo(new CrudRepository(sf));
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
