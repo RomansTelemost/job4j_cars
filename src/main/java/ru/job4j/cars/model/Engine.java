@@ -8,13 +8,12 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "auto_user")
-public class User {
+@Table(name = "engine")
+public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    private String login;
-    private String password;
+    private String name;
 }

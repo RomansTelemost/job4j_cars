@@ -15,5 +15,10 @@
 <!--        <property name="hibernate.format_sql">true</property>-->
 
         <mapping class="ru.job4j.cars.model.User" />
+        <mapping class="ru.job4j.cars.model.AutoPost" />
+        <mapping class="ru.job4j.cars.model.Car" />
+        <mapping class="ru.job4j.cars.model.Engine" />
+        <mapping class="ru.job4j.cars.model.Owner" />
+        <mapping class="ru.job4j.cars.model.PriceHistory" />
     </session-factory>
 </hibernate-configuration>
