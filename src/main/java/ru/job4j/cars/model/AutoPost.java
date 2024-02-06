@@ -23,7 +23,7 @@ public class AutoPost {
 
     private String description;
 
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
