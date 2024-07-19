@@ -16,7 +16,7 @@ import java.util.function.Function;
 @Repository
 public class CrudRepository {
 
-    private final SessionFactory sf;
+    final SessionFactory sf;
 
     public void run(Consumer<Session> command) {
         tx(session -> {

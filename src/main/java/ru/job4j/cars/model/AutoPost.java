@@ -3,14 +3,18 @@ package ru.job4j.cars.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "auto_post")
 public class AutoPost {
@@ -34,7 +38,7 @@ public class AutoPost {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_post_id")
-    private List<PriceHistory> priceHistoryList;
+    private List<PriceHistory> priceHistoryList = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -43,4 +47,8 @@ public class AutoPost {
             inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
     private List<User> userList;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "auto_post_id", foreignKey = @ForeignKey(name = "AUTO_POST_ID_FK"))
+    private Set<File> files;
 }

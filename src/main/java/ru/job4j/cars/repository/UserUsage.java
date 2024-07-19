@@ -8,7 +8,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.job4j.cars.conf.HibernateConfiguration;
+import ru.job4j.cars.model.AutoPost;
 import ru.job4j.cars.model.User;
+
+import java.time.LocalDate;
 
 @Component
 public class UserUsage {
@@ -19,8 +22,8 @@ public class UserUsage {
                 .buildMetadata().buildSessionFactory()) {
             ApplicationContext applicationContext = new AnnotationConfigApplicationContext(HibernateConfiguration.class);
             UserRepositoryByCrudRepo userRepository = applicationContext.getBean(UserRepositoryByCrudRepo.class);
+            HqlPostRepository hqlPostRepository = applicationContext.getBean(HqlPostRepository.class);
 
-            System.out.println("***");
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
@@ -41,6 +44,17 @@ public class UserUsage {
             userRepository.delete(user.getId());
             userRepository.findAllOrderById()
                     .forEach(System.out::println);
+
+            for (AutoPost autoPost : hqlPostRepository.getAutoPostFromDateByCriteria(LocalDate.now())) {
+                System.out.println("Post for today");
+                System.out.println("id: " + autoPost.getId());
+                System.out.println("Description: " + autoPost.getDescription());
+            }
+            for (AutoPost autoPost : hqlPostRepository.getAutoPostWithPhoto()) {
+                System.out.println("Post with photo");
+                System.out.println("id: " + autoPost.getId());
+                System.out.println("Description: " + autoPost.getDescription());
+            }
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }

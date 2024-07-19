@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.job4j.cars.repository.CrudRepository;
+import ru.job4j.cars.repository.HqlPostRepository;
 import ru.job4j.cars.repository.UserRepositoryByCrudRepo;
 
 @Configuration
@@ -24,6 +25,11 @@ public class HibernateConfiguration {
     @Bean
     public UserRepositoryByCrudRepo crudRepo() {
         return new UserRepositoryByCrudRepo(new CrudRepository(sf()));
+    }
+
+    @Bean
+    public HqlPostRepository hqlPostRepository() {
+        return new HqlPostRepository(new CrudRepository(sf()));
     }
 
 }
