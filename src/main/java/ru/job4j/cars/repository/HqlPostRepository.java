@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.AutoPost;
 import ru.job4j.cars.model.Brand;
 
-import javax.persistence.criteria.CriteriaQuery;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Optional;
 @Repository
 public class HqlPostRepository implements PostRepository {
 
-    CrudRepository cr;
+    private CrudRepository cr;
 
     @Override
     public Optional<AutoPost> findById(int id) {

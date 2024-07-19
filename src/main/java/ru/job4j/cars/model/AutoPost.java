@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,7 +22,7 @@ public class AutoPost {
 
     private String description;
 
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
@@ -35,7 +34,7 @@ public class AutoPost {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_post_id")
-    private List<PriceHistory> priceHistoryList = new ArrayList<>();
+    private List<PriceHistory> priceHistoryList;
 
     @ManyToMany
     @JoinTable(
@@ -43,5 +42,5 @@ public class AutoPost {
             joinColumns = { @JoinColumn(name = "post_id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
-    private List<User> userList = new ArrayList<>();
+    private List<User> userList;
 }

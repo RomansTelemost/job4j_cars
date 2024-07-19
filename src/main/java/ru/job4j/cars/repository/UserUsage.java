@@ -17,9 +17,10 @@ public class UserUsage {
                 .configure().build();
         try (SessionFactory sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
-            ApplicationContext j = new AnnotationConfigApplicationContext(HibernateConfiguration.class);
-            UserRepositoryByCrudRepo userRepository = j.getBean(UserRepositoryByCrudRepo.class);
+            ApplicationContext applicationContext = new AnnotationConfigApplicationContext(HibernateConfiguration.class);
+            UserRepositoryByCrudRepo userRepository = applicationContext.getBean(UserRepositoryByCrudRepo.class);
 
+            System.out.println("***");
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
@@ -36,6 +37,7 @@ public class UserUsage {
             userRepository.update(user);
             userRepository.findById(user.getId())
                     .ifPresent(System.out::println);
+            System.out.println("***1");
             userRepository.delete(user.getId());
             userRepository.findAllOrderById()
                     .forEach(System.out::println);

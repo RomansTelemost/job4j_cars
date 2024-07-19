@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class HqlOwnerRepository implements OwnerRepository {
 
-    CrudRepository cr;
+    private CrudRepository cr;
 
     @Override
     public Optional<Owner> findById(int id) {

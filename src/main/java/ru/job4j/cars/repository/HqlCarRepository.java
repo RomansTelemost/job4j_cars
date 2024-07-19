@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class HqlCarRepository implements CarRepository {
 
-    CrudRepository cr;
+    private CrudRepository cr;
 
     @Override
     public Optional<Car> findById(int id) {
