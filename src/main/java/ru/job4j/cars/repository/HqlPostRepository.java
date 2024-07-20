@@ -31,9 +31,9 @@ public class HqlPostRepository implements PostRepository {
 
     @Override
     public List<AutoPost> getAutoPostFromDate(LocalDate localDate) {
-        return cr.query("FROM AutoPost p " +
-                        "JOIN FETCH p.car " +
-                        "WHERE p.created >= :created",
+        return cr.query("FROM AutoPost p "
+                        + "JOIN FETCH p.car "
+                        + "WHERE p.created >= :created",
                 AutoPost.class,
                 Map.of("created",
                         localDate.atStartOfDay()));
@@ -53,10 +53,10 @@ public class HqlPostRepository implements PostRepository {
 
     @Override
     public List<AutoPost> getAutoPostWithPhoto() {
-        return cr.query("FROM AutoPost p " +
-                "JOIN FETCH p.car " +
-                "LEFT JOIN FETCH p.files " +
-                "WHERE size(p.files) <> 0",
+        return cr.query("FROM AutoPost p "
+                        + "JOIN FETCH p.car "
+                        + "LEFT JOIN FETCH p.files "
+                        + "WHERE size(p.files) <> 0",
                 AutoPost.class);
     }
 

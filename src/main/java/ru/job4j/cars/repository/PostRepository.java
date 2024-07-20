@@ -12,6 +12,7 @@ public interface PostRepository {
     Optional<AutoPost> findById(int id);
 
     List<AutoPost> getAutoPostFromDate(LocalDate localDate);
+
     List<AutoPost> getAutoPostFromDateByCriteria(LocalDate localDate);
 
     List<AutoPost> getAutoPostWithPhoto();
